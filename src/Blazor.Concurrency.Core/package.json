@@ -1,0 +1,13 @@
+{
+  "name": "blazor-concurrency-core",
+  "private": true,
+  "devDependencies": {
+    "typescript": "^5.3.0",
+    "@types/node": "^20.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "clean": "rimraf wwwroot/js"
+  }
+}

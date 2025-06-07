@@ -1,0 +1,75 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+  
+  <PropertyGroup>
+    <!-- General Project Settings -->
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Blazor.Concurrency</RootNamespace>
+    <!-- TypeScript Configuration -->
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+
+    <!-- NuGet Packaging -->
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>Blazor.Concurrency.Core</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>Your Name</Authors>
+    <Description>Core worker orchestration engine for Blazor WebAssembly concurrency</Description>
+    <PackageTags>blazor;webassembly;concurrency;workers;core</PackageTags>
+    <RepositoryUrl>https://github.com/yourusername/blazor-concurrency</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.16" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.3" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+
+    <!-- TypeScript Configuration -->
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.8.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="TypeGen" Version="6.0.2" />
+  </ItemGroup>
+
+  <!-- TypeScript source files -->
+  <ItemGroup>
+    <Content Remove="assets/ts/**" />
+    <TypeScriptCompile Include="assets/ts/**/*.ts" />
+    <Content Remove="assets/ts/generated/**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\js\" />
+  </ItemGroup>
+
+  <!-- TypeGen execution before TypeScript compilation -->
+  <Target Name="GenerateTypeScript" AfterTargets="Build" Condition="Exists('$(OutputPath)$(AssemblyName).dll')">
+    <Message Text="🔧 Generating TypeScript from C# types..." Importance="high" />
+    <Exec Command="dotnet-typegen generate" WorkingDirectory="$(MSBuildProjectDirectory)" ContinueOnError="false" />
+    <Message Text="✅ TypeScript generation completed" Importance="high" />
+    <Message Text="🔧 Compiling TypeScript to JavaScript..." Importance="high" />
+    <Exec Command="npx tsc" WorkingDirectory="$(MSBuildProjectDirectory)" ContinueOnError="false" />
+    <Message Text="✅ TypeScript compilation completed" Importance="high" />
+  </Target>
+
+  <!-- Clean compiled TypeScript when cleaning project -->
+  <Target Name="CleanTypeScript" BeforeTargets="Clean">
+    <Message Text="🧹 Cleaning generated TypeScript and JavaScript files..." Importance="high" />
+    <ItemGroup>
+      <CompiledTypeScript Include="wwwroot/js/**/*.js" />
+      <CompiledTypeScript Include="wwwroot/js/**/*.js.map" />
+      <CompiledTypeScript Include="wwwroot/js/**/*.d.ts" />
+      <GeneratedTypeScript Include="assets/ts/generated/**/*.ts" />
+    </ItemGroup>
+    <Delete Files="@(CompiledTypeScript)" />
+    <Delete Files="@(GeneratedTypeScript)" />
+    <Message Text="✅ Cleanup completed" Importance="high" />
+  </Target>
+</Project>

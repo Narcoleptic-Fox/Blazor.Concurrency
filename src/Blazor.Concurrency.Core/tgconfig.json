@@ -1,0 +1,17 @@
+{
+  "outputPath": "./assets/ts/generated",
+  "createIndexFile": true,
+  "fileNameConverters": [ "PascalCaseToKebabCase" ],
+  "propertyNameConverters": [ "PascalCaseToCamelCase" ],
+  "assemblies": [ "./bin/Debug/net8.0/Blazor.Concurrency.Core.dll" ],
+  "csNullableTranslation": "null",
+  "customTypeMappings": {
+    "System.DateTime": "Date",
+    "System.Guid": "string",
+    "System.Collections.Generic.Dictionary`2": "Record<string, any>",
+  },
+  "templates": {
+    "class": "export interface ${name}${genericParameters} ${extendsText} {\n${properties}\n}",
+    "interface": "export interface ${name}${genericParameters} ${extendsText} {\n${properties}\n}"
+  }
+}

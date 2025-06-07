@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <!-- General Project Settings -->
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- NuGet Packaging -->
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>Blazor.Concurrency</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>Your Name</Authors>
+    <Description>Service-oriented interfaces for Blazor.Concurrency</Description>
+    <PackageTags>blazor;webassembly;concurrency;services</PackageTags>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.16" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Blazor.Concurrency.Core\Blazor.Concurrency.Core.csproj" />
+  </ItemGroup>
+
+</Project>
