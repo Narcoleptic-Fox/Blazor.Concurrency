@@ -53,5 +53,5 @@ internal class CryptographyService : ICryptographyService
 }
 
 internal record CryptoResult(byte[] Data);
-internal record CryptoKeyPairResult(CryptoKey PublicKey, CryptoKey PrivateKey);
+internal record CryptoKeyPairResult(CryptoKeyInfo PublicKey, CryptoKeyInfo PrivateKey);
 internal record CryptoVerifyResult(bool IsValid);
