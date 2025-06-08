@@ -1,6 +1,7 @@
-﻿using TypeGen.Core.TypeAnnotations;
+﻿using Blazor.Concurrency.Workers;
+using TypeGen.Core.TypeAnnotations;
 
-namespace Blazor.Concurrency.Workers;
+namespace Blazor.Concurrency;
 
 /// <summary>
 /// Core interface for executing operations in web workers

@@ -1,0 +1,11 @@
+/**
+ * This is a TypeGen auto-generated file.
+ * Any changes made to this file can be lost when this file is regenerated.
+ */
+import { CryptoKeyInfo } from "./crypto-key-info";
+export interface CryptoVerifyRequest {
+    data: number[];
+    signature: number[];
+    publicKey: CryptoKeyInfo;
+    algorithm: string;
+}
